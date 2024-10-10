@@ -1,0 +1,23 @@
+<launch>
+<include file="$(find xarm_bringup)/launch/xarm6_server.launch">
+    <arg name="robot_ip" value="192.168.1.203"/>
+</include>
+
+<group ns="get_JointStates">
+    <node
+        name="teleop"
+        pkg="teleop_key"
+        type="teleop_key"
+        respawn="false"
+        output="log"
+    />
+
+    <node
+        name="get_joint_states"
+        pkg="get_joint_states"
+        type="get_joint_states"
+        respawn="false"
+        output="screen"
+    />
+</group>
+</launch>

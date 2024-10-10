@@ -1,0 +1,11 @@
+<launch>
+    <rosparam file="$(find xarm6_collision)/config/collision_detection.yaml" command="load"/>
+
+    <node
+        name="collision_detection"
+        pkg="xarm6_collision"
+        type="xarm6_collision"
+        respawn="false"
+        output="screen"
+    />
+</launch>
