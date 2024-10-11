@@ -5,6 +5,7 @@
 #include <Eigen/Dense>
 #include <iostream>
 #include <fstream>
+#include <get_joint_states/Float64SaveData.h>
 
 // #define DOF 6
 #define Fs 10
@@ -27,8 +28,8 @@ void Subscribe_JointStates(const sensor_msgs::JointState &state){
     // ROS_INFO("Joint Effort : %f", state.effort[1]);
     for(int i=0; i<DOF; i++){
         topic_position(i) = (double)state.position[i];
-        // topic_velocity(i) = (double)state.position[i];
-        // topic_effort(i) = (double)state.effort[i];
+        topic_velocity(i) = (double)state.position[i];
+        topic_effort(i) = (double)state.effort[i];
     }
 }
 
@@ -46,16 +47,24 @@ void Subscribe_Teleop(const geometry_msgs::Twist &cmd){
 }
 
 int main(int argc, char **argv){
+    using get_joint_states::Float64SaveData;
+
     // Initialize ROS node
     ros::init(argc, argv, "get_joint_satates");
     ros::NodeHandle nh;
 
+    // Resistration the publishing topic
+    ros::Publisher pub_save = nh.advertise<Float64SaveData>("save_data",10);
+
     // Resister the Callback function of Topic communication and setting
     ros::Subscriber sub_JointStates = nh.subscribe("/xarm/joint_states", 10, Subscribe_JointStates);
-    ros::Subscriber sub_Teleop = nh.subscribe("/get_JointStates/cmd_vel", 10, Subscribe_Teleop);
+    ros::Subscriber sub_Teleop = nh.subscribe("cmd_vel", 10, Subscribe_Teleop);
 
     // Load Parameter
     DOF = nh.param<int>("/xarm/DOF", 6);
+
+    // difinition the valiables
+    Float64SaveData data;
 
     // Set loop rate
     ros::Rate rate(Fs);
@@ -65,7 +74,17 @@ int main(int argc, char **argv){
     while(ros::ok()){
         g_mutex.lock();
 
-        
+        // if press 's' key
+        if(get_flag == 1){
+            for(int i=0; i<DOF; i++){
+                data.position[i] = topic_position(i);
+                data.velocity[i] = topic_velocity(i);
+                data.effort[i] = topic_effort(i);
+            }
+
+            // save data publish
+            pub_save.publish(data);
+        }
 
         get_flag = 0;
 
