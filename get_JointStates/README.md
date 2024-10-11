@@ -1,4 +1,5 @@
 使用方法
+
     1.launchファイルの起動
         $ roslaunch get_joint_states get_joint_states.launch
 
@@ -14,4 +15,5 @@
 
 
 依存関係
+
     1.xarm_ros/xarm_bringup/launch/xarm6_server.launch
