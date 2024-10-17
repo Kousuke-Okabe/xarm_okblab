@@ -57,6 +57,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_service_files(FILES
   SetAxis.srv
   SetInt16.srv
+  Move.srv
 )
 
 ## Generate actions in the 'action' folder
