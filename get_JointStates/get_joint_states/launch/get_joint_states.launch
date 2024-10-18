@@ -1,9 +1,9 @@
 <launch>
 <arg name="ns" default="get_JointStates" />
 
-<include file="$(find xarm_bringup)/launch/xarm6_server.launch">
+<!-- <include file="$(find xarm_bringup)/launch/xarm6_server.launch">
     <arg name="robot_ip" value="192.168.1.203"/>
-</include>
+</include> -->
 
     <node
         name="teleop"
