@@ -1,18 +1,18 @@
 #include <ros/ros.h>
 #include <std_msgs/Float32MultiArray.h>
-#include <xarm_control/SetAxis.h>
-#include <xarm_control/SetInt16.h>
-#include <xarm_control/Move.h>
+#include <xarm_control_continuance/SetAxis.h>
+#include <xarm_control_continuance/SetInt16.h>
+#include <xarm_control_continuance/Move.h>
 
 #define Fs      10
 
 int main(int argc, char** argv){
-    using xarm_control::SetAxis;
-    using xarm_control::SetInt16;
-    using xarm_control::Move;
+    using xarm_control_continuance::SetAxis;
+    using xarm_control_continuance::SetInt16;
+    using xarm_control_continuance::Move;
 
     // Initialize ROS
-    ros::init(argc, argv, "xarm_control");
+    ros::init(argc, argv, "xarm_control_continuance");
     ros::NodeHandle nh;
 
     // Resistration Service client

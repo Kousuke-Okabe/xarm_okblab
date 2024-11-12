@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(xarm_control)
+project(xarm_control_continuance)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -135,7 +135,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(
-    ${PROJECT_NAME} src/xarm_control.cpp
+    ${PROJECT_NAME} src/xarm_control_continuance.cpp
 )
 
 ## Rename C++ executable without prefix

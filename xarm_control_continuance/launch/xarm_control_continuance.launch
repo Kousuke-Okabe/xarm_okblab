@@ -6,9 +6,9 @@
 </include> -->
 
 <node
-    name="xarm_control"
-    pkg="xarm_control"
-    type="xarm_control"
+    name="xarm_control_continuance"
+    pkg="xarm_control_continuance"
+    type="xarm_control_continuance"
     respawn="false"
     output="screen"
     ns="$(arg ns)"

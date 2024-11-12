@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>xarm_control</name>
+  <name>xarm_control_continuance</name>
   <version>0.0.0</version>
-  <description>The xarm_control package</description>
+  <description>The xarm_control_continuance package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
