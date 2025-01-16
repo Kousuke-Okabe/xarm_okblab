@@ -28,7 +28,7 @@ void Subscribe_JointStates(const sensor_msgs::JointState &state){
     // ROS_INFO("Joint Effort : %f", state.effort[1]);
     for(int i=0; i<DOF; i++){
         topic_position(i) = (double)state.position[i];
-        topic_velocity(i) = (double)state.position[i];
+        topic_velocity(i) = (double)state.velocity[i];
         topic_effort(i) = (double)state.effort[i];
     }
 }
