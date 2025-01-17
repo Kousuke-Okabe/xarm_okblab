@@ -4,12 +4,13 @@
 <!-- <include file="$(find xarm_bringup)/launch/xarm6_server.launch">
     <arg name="robot_ip" value="192.168.1.203"/>
 </include> -->
-<rosparam command="load" file="$(find xarm_control_ptp)/config/xarm_control_ptp.yaml" />
+
+<rosparam command="load" file="$(find xarm_controlj_continuance)/config/xarm_controlj_continuance.yaml" />
 
 <node
-    name="xarm_control_ptp"
-    pkg="xarm_control_ptp"
-    type="xarm_control_ptp"
+    name="xarm_controlj_continuance"
+    pkg="xarm_controlj_continuance"
+    type="xarm_controlj_continuance"
     respawn="false"
     output="screen"
     ns="$(arg ns)"

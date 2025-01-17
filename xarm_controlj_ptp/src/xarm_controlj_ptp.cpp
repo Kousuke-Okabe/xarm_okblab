@@ -1,39 +1,42 @@
 #include <ros/ros.h>
 #include <std_msgs/Float32MultiArray.h>
-#include <xarm_control_ptp/SetAxis.h>
-#include <xarm_control_ptp/SetInt16.h>
-#include <xarm_control_ptp/Move.h>
+#include <xarm_controlj_ptp/SetAxis.h>
+#include <xarm_controlj_ptp/SetInt16.h>
+#include <xarm_controlj_ptp/Move.h>
 
 int main(int argc, char** argv){
-    using xarm_control_ptp::SetAxis;
-    using xarm_control_ptp::SetInt16;
-    using xarm_control_ptp::Move;
+    using xarm_controlj_ptp::SetAxis;
+    using xarm_controlj_ptp::SetInt16;
+    using xarm_controlj_ptp::Move;
 
     // Initialize ROS
-    ros::init(argc, argv, "xarm_control_ptp");
+    ros::init(argc, argv, "xarm_controlj_ptp");
     ros::NodeHandle nh;
 
     // Resistration Service client
     ros::ServiceClient motion_ctrl = nh.serviceClient<SetAxis>("/xarm/motion_ctrl");
     ros::ServiceClient set_mode = nh.serviceClient<SetInt16>("/xarm/set_mode");
     ros::ServiceClient set_state = nh.serviceClient<SetInt16>("/xarm/set_state");
-    ros::ServiceClient move_command = nh.serviceClient<Move>("/xarm/move_line");
+    ros::ServiceClient move_command = nh.serviceClient<Move>("/xarm/move_joint");
 
     // Load ROS parameters
     float mvvelo = nh.param<float>("/xarm/mvvelo",1);
     float mvacc = nh.param<float>("/xarm/mvacc",1);
 
-    float r_ref[6];
-    r_ref[0] = nh.param<float>("/xarm/position_ref_x",250);
-    r_ref[1] = nh.param<float>("/xarm/position_ref_y",0);
-    r_ref[2] = nh.param<float>("/xarm/position_ref_z",350);
-    r_ref[3] = nh.param<float>("/xarm/angle_ref_R",180);
-    r_ref[4] = nh.param<float>("/xarm/angle_ref_P",200);
-    r_ref[5] = nh.param<float>("/xarm/angle_ref_Y",2000);
+    float q_ref[6];
+    q_ref[0] = nh.param<float>("/xarm/angle_ref_1",0);
+    q_ref[1] = nh.param<float>("/xarm/angle_ref_2",0);
+    q_ref[2] = nh.param<float>("/xarm/angle_ref_3",0);
+    q_ref[3] = nh.param<float>("/xarm/angle_ref_4",0);
+    q_ref[4] = nh.param<float>("/xarm/angle_ref_5",0);
+    q_ref[5] = nh.param<float>("/xarm/angle_ref_6",0);
     
-    r_ref[3] = r_ref[3]/180*M_PI;
-    r_ref[4] = r_ref[4]/180*M_PI;
-    r_ref[5] = r_ref[5]/180*M_PI;
+    q_ref[0] = q_ref[0]/180*M_PI;
+    q_ref[1] = q_ref[1]/180*M_PI;
+    q_ref[2] = q_ref[2]/180*M_PI;
+    q_ref[3] = q_ref[3]/180*M_PI;
+    q_ref[4] = q_ref[4]/180*M_PI;
+    q_ref[5] = q_ref[5]/180*M_PI;
 
     // Servo ON
     SetAxis AxisData;
@@ -71,12 +74,12 @@ int main(int argc, char** argv){
     Move Move_command;
     std_msgs::Float32MultiArray position_command;
     position_command.data.resize(6);
-    position_command.data[0] = r_ref[0];
-    position_command.data[1] = r_ref[1];
-    position_command.data[2] = r_ref[2];
-    position_command.data[3] = r_ref[3];
-    position_command.data[4] = r_ref[4];
-    position_command.data[5] = r_ref[5];
+    position_command.data[0] = q_ref[0];
+    position_command.data[1] = q_ref[1];
+    position_command.data[2] = q_ref[2];
+    position_command.data[3] = q_ref[3];
+    position_command.data[4] = q_ref[4];
+    position_command.data[5] = q_ref[5];
 
     Move_command.request.pose = position_command.data;
     Move_command.request.mvvelo = mvvelo;

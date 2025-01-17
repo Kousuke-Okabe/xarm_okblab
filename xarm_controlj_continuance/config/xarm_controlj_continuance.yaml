@@ -1,0 +1,11 @@
+xarm:
+  move_joint: 4
+  move_amplitude: 90
+  move_period: 10
+
+  initial_angle_1: 0.0
+  initial_angle_2: 0.0
+  initial_angle_3: -180.0
+  initial_angle_4: 0.0
+  initial_angle_5: 0.0
+  initial_angle_6: 0.0
