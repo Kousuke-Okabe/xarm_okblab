@@ -1,0 +1,18 @@
+
+xarm:
+  angle_ref1_x: 400
+  angle_ref1_y: 0
+  angle_ref1_z: 500
+  angle_ref1_R: 180
+  angle_ref1_P: 0
+  angle_ref1_Y: 0
+
+  angle_ref2_x: 400
+  angle_ref2_y: 0
+  angle_ref2_z: 600
+  angle_ref2_R: 180
+  angle_ref2_P: 0
+  angle_ref2_Y: 0
+
+  mvvelo: 20
+  mvacc: 10

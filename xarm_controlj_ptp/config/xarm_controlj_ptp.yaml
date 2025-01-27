@@ -5,5 +5,5 @@ xarm:
   angle_ref_4: 0.0
   angle_ref_5: 0.0
   angle_ref_6: 0.0
-  mvvelo: 1
+  mvvelo: 0.5
   mvacc: 1
