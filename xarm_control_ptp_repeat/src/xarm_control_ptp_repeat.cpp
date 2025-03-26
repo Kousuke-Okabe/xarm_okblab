@@ -50,29 +50,40 @@ int main(int argc, char** argv){
     float mvvelo = nh.param<float>("/xarm/mvvelo",1);
     float mvacc = nh.param<float>("/xarm/mvacc",1);
 
-    float r_ref1[6];
-    r_ref1[0] = nh.param<float>("/xarm/angle_ref1_x",250);
-    r_ref1[1] = nh.param<float>("/xarm/angle_ref1_y",0);
-    r_ref1[2] = nh.param<float>("/xarm/angle_ref1_z",300);
-    r_ref1[3] = nh.param<float>("/xarm/angle_ref1_R",180);
-    r_ref1[4] = nh.param<float>("/xarm/angle_ref1_P",0);
-    r_ref1[5] = nh.param<float>("/xarm/angle_ref1_Y",0);
+    float r_ref[4][6];
+    r_ref[0][0] = nh.param<float>("/xarm/angle_ref1_x",250);
+    r_ref[0][1] = nh.param<float>("/xarm/angle_ref1_y",0);
+    r_ref[0][2] = nh.param<float>("/xarm/angle_ref1_z",300);
+    r_ref[0][3] = nh.param<float>("/xarm/angle_ref1_R",180);
+    r_ref[0][4] = nh.param<float>("/xarm/angle_ref1_P",0);
+    r_ref[0][5] = nh.param<float>("/xarm/angle_ref1_Y",0);
 
-    float r_ref2[6];
-    r_ref2[0] = nh.param<float>("/xarm/angle_ref2_x",250);
-    r_ref2[1] = nh.param<float>("/xarm/angle_ref2_y",0);
-    r_ref2[2] = nh.param<float>("/xarm/angle_ref2_z",400);
-    r_ref2[3] = nh.param<float>("/xarm/angle_ref2_R",180);
-    r_ref2[4] = nh.param<float>("/xarm/angle_ref2_P",0);
-    r_ref2[5] = nh.param<float>("/xarm/angle_ref2_Y",0);
+    r_ref[1][0] = nh.param<float>("/xarm/angle_ref2_x",250);
+    r_ref[1][1] = nh.param<float>("/xarm/angle_ref2_y",0);
+    r_ref[1][2] = nh.param<float>("/xarm/angle_ref2_z",400);
+    r_ref[1][3] = nh.param<float>("/xarm/angle_ref2_R",180);
+    r_ref[1][4] = nh.param<float>("/xarm/angle_ref2_P",0);
+    r_ref[1][5] = nh.param<float>("/xarm/angle_ref2_Y",0);
     
-    r_ref1[3] = r_ref1[3]/180*M_PI;
-    r_ref1[4] = r_ref1[4]/180*M_PI;
-    r_ref1[5] = r_ref1[5]/180*M_PI;
-
-    r_ref2[3] = r_ref2[3]/180*M_PI;
-    r_ref2[4] = r_ref2[4]/180*M_PI;
-    r_ref2[5] = r_ref2[5]/180*M_PI;
+    r_ref[2][0] = nh.param<float>("/xarm/angle_ref3_x",250);
+    r_ref[2][1] = nh.param<float>("/xarm/angle_ref3_y",0);
+    r_ref[2][2] = nh.param<float>("/xarm/angle_ref3_z",400);
+    r_ref[2][3] = nh.param<float>("/xarm/angle_ref3_R",180);
+    r_ref[2][4] = nh.param<float>("/xarm/angle_ref3_P",0);
+    r_ref[2][5] = nh.param<float>("/xarm/angle_ref3_Y",0);
+    
+    r_ref[3][0] = nh.param<float>("/xarm/angle_ref4_x",250);
+    r_ref[3][1] = nh.param<float>("/xarm/angle_ref4_y",0);
+    r_ref[3][2] = nh.param<float>("/xarm/angle_ref4_z",400);
+    r_ref[3][3] = nh.param<float>("/xarm/angle_ref4_R",180);
+    r_ref[3][4] = nh.param<float>("/xarm/angle_ref4_P",0);
+    r_ref[3][5] = nh.param<float>("/xarm/angle_ref4_Y",0);
+    
+    for(int i=0; i<rowCount(r_ref); i++){
+        for(int j=3; j<colCount(r_ref); j++){
+            r_ref[i][j] = r_ref[i][j]/180*M_PI;
+        }
+    }
 
     // Servo ON ///////////////////////////////////////////////////////////////////////////////////
     SetAxis AxisData;
@@ -110,12 +121,12 @@ int main(int argc, char** argv){
     Move Move_command;
     std_msgs::Float32MultiArray position_command;
     position_command.data.resize(6);
-    position_command.data[0] = r_ref1[0];
-    position_command.data[1] = r_ref1[1];
-    position_command.data[2] = r_ref1[2];
-    position_command.data[3] = r_ref1[3];
-    position_command.data[4] = r_ref1[4];
-    position_command.data[5] = r_ref1[5];
+    position_command.data[0] = r_ref[0][0];
+    position_command.data[1] = r_ref[0][1];
+    position_command.data[2] = r_ref[0][2];
+    position_command.data[3] = r_ref[0][3];
+    position_command.data[4] = r_ref[0][4];
+    position_command.data[5] = r_ref[0][5];
 
     Move_command.request.pose = position_command.data;
     Move_command.request.mvvelo = mvvelo;
@@ -123,7 +134,8 @@ int main(int argc, char** argv){
     Move_command.request.mvtime = 0;
     Move_command.request.mvradii = 0;
 
-    bool move_flag = false;
+    bool move_flag = true;
+    int ref_cnt = 0;
 
     // move_command.call(Move_command);
     // if(Move_command.response.ret){
@@ -134,30 +146,46 @@ int main(int argc, char** argv){
     ros::Rate loop_rate(0.2);
 
     while(ros::ok()){
+        ROS_INFO("MOVE ref%d", ref_cnt);
+        for(int i=0; i<colCount(r_ref); i++){
+            position_command.data[i] = r_ref[ref_cnt][i];
+        }
+
         if(move_flag){
-            ROS_INFO("MOVE ref1");
-
-            position_command.data[0] = r_ref1[0];
-            position_command.data[1] = r_ref1[1];
-            position_command.data[2] = r_ref1[2];
-            position_command.data[3] = r_ref1[3];
-            position_command.data[4] = r_ref1[4];
-            position_command.data[5] = r_ref1[5];
-
-            move_flag = false;
+            ref_cnt ++;
+            if(ref_cnt == rowCount(r_ref)-1)
+                move_flag = false;
         }
         else{
-            ROS_INFO("MOVE ref2");
-
-            position_command.data[0] = r_ref2[0];
-            position_command.data[1] = r_ref2[1];
-            position_command.data[2] = r_ref2[2];
-            position_command.data[3] = r_ref2[3];
-            position_command.data[4] = r_ref2[4];
-            position_command.data[5] = r_ref2[5];
-
-            move_flag = true;
+            ref_cnt --;
+            if(ref_cnt == 0)
+                move_flag = true;
         }
+
+        // if(move_flag){
+        //     ROS_INFO("MOVE ref1");
+
+        //     position_command.data[0] = r_ref1[0];
+        //     position_command.data[1] = r_ref1[1];
+        //     position_command.data[2] = r_ref1[2];
+        //     position_command.data[3] = r_ref1[3];
+        //     position_command.data[4] = r_ref1[4];
+        //     position_command.data[5] = r_ref1[5];
+
+        //     move_flag = false;
+        // }
+        // else{
+        //     ROS_INFO("MOVE ref2");
+
+        //     position_command.data[0] = r_ref2[0];
+        //     position_command.data[1] = r_ref2[1];
+        //     position_command.data[2] = r_ref2[2];
+        //     position_command.data[3] = r_ref2[3];
+        //     position_command.data[4] = r_ref2[4];
+        //     position_command.data[5] = r_ref2[5];
+
+        //     move_flag = true;
+        // }
 
         Move_command.request.pose = position_command.data;
         

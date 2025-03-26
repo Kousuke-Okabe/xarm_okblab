@@ -1,9 +1,9 @@
 xarm:
-  position_ref_x: 250 # mm
+  position_ref_x: 500 # mm
   position_ref_y: 0.0 # mm
-  position_ref_z: 350 # mm
-  angle_ref_R: 180.0 # degree
-  angle_ref_P: 0.0 # degree
+  position_ref_z: 400 # mm
+  angle_ref_R: 0.0 # degree
+  angle_ref_P: 90.0 # degree
   angle_ref_Y: 0.0 # degree
-  mvvelo: 100
-  mvacc: 2000
+  mvvelo: 20
+  mvacc: 10

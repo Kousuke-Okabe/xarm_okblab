@@ -2,16 +2,16 @@
 xarm:
   angle_ref1_1: 0
   angle_ref1_2: 0
-  angle_ref1_3: -120
+  angle_ref1_3: -80
   angle_ref1_4: 0
   angle_ref1_5: 0
   angle_ref1_6: 0
 
   angle_ref2_1: 0
-  angle_ref2_2: 30
-  angle_ref2_3: -90
+  angle_ref2_2: 0
+  angle_ref2_3: -100
   angle_ref2_4: 0
-  angle_ref2_5: 90
+  angle_ref2_5: 0
   angle_ref2_6: 0
 
   mvvelo: 0.1
