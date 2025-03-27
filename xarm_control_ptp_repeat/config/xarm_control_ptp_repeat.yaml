@@ -1,32 +1,32 @@
 
 xarm:
-  angle_ref1_x: 400
-  angle_ref1_y: 150
-  angle_ref1_z: 500
+  angle_ref1_x: 300
+  angle_ref1_y: 200
+  angle_ref1_z: 200
   angle_ref1_R: 0
-  angle_ref1_P: 90
+  angle_ref1_P: 180
   angle_ref1_Y: 0
 
-  angle_ref2_x: 400
-  angle_ref2_y: 150
+  angle_ref2_x: 300
+  angle_ref2_y: 200
   angle_ref2_z: 300
   angle_ref2_R: 0
   angle_ref2_P: 180
   angle_ref2_Y: 0
   
   angle_ref3_x: 400
-  angle_ref3_y: 150
-  angle_ref3_z: 300
+  angle_ref3_y: -150
+  angle_ref3_z: 500
   angle_ref3_R: 0
-  angle_ref3_P: 180
+  angle_ref3_P: 90
   angle_ref3_Y: 0
   
-  angle_ref4_x: 400
-  angle_ref4_y: 150
-  angle_ref4_z: 300
+  angle_ref4_x: 500
+  angle_ref4_y: -150
+  angle_ref4_z: 500
   angle_ref4_R: 0
-  angle_ref4_P: 180
+  angle_ref4_P: 90
   angle_ref4_Y: 0
 
-  mvvelo: 50
-  mvacc: 5
+  mvvelo: 100
+  mvacc: 50

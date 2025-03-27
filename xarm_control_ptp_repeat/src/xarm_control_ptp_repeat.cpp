@@ -5,52 +5,33 @@
 #include <xarm_control_ptp_repeat/SetInt16.h>
 #include <xarm_control_ptp_repeat/Move.h>
 
+#define NOREF 4
+
 // sensor_msgs::JointState joint_states;
 // std::mutex mut;
 // bool sub_flag = false; 
-
-// void Subscribe_jointstates(const sensor_msgs::JointState::ConstPtr& msg){
-//     std::lock_guard<std::mutex> lock(mut);
-
-//     joint_states.position.resize(msg->position.size());
-//     joint_states.velocity.resize(msg->velocity.size());
-//     joint_states.effort.resize(msg->effort.size());
-//     joint_states.name.resize(msg->name.size());
-//     joint_states.position = msg->position;
-//     joint_states.velocity = msg->velocity;
-//     joint_states.effort = msg->effort;
-//     joint_states.name = msg->name;
-
-//     sub_flag = true;
-// }
 
 int main(int argc, char** argv){
     using xarm_control_ptp_repeat::SetAxis;
     using xarm_control_ptp_repeat::SetInt16;
     using xarm_control_ptp_repeat::Move;
 
-    // Initialize ROS //////////////////////////////////////////////////////////////////////////////
+    // Initialize ROS
     ros::init(argc, argv, "xarm_control_ptp_repeat");
     ros::NodeHandle nh;
 
-    // Resistration Publisher ///////////////////////////////////////////////////////////////////////
-    // ros::Publisher pub_jointstates_rosbag = nh.advertise<sensor_msgs::JointState>("/xarm/joint_states_rosbag", 10);
-
-    // Resistration callback function of subscribe //////////////////////////////////////////////////
-    // ros::Subscriber sub_jointstates = nh.subscribe("/xarm/joint_states", 10, Subscribe_jointstates);
-
-    // Resistration Service client //////////////////////////////////////////////////////////////////
+    // Resistration Service client
     ros::ServiceClient motion_ctrl = nh.serviceClient<SetAxis>("/xarm/motion_ctrl");
     ros::ServiceClient set_mode = nh.serviceClient<SetInt16>("/xarm/set_mode");
     ros::ServiceClient set_state = nh.serviceClient<SetInt16>("/xarm/set_state");
 
     ros::ServiceClient move_command = nh.serviceClient<Move>("/xarm/move_line");
 
-    // Load ROS parameters //////////////////////////////////////////////////////////////////////////
+    // Load ROS parameters
     float mvvelo = nh.param<float>("/xarm/mvvelo",1);
     float mvacc = nh.param<float>("/xarm/mvacc",1);
 
-    float r_ref[4][6];
+    float r_ref[NOREF][6];
     r_ref[0][0] = nh.param<float>("/xarm/angle_ref1_x",250);
     r_ref[0][1] = nh.param<float>("/xarm/angle_ref1_y",0);
     r_ref[0][2] = nh.param<float>("/xarm/angle_ref1_z",300);
@@ -79,13 +60,13 @@ int main(int argc, char** argv){
     r_ref[3][4] = nh.param<float>("/xarm/angle_ref4_P",0);
     r_ref[3][5] = nh.param<float>("/xarm/angle_ref4_Y",0);
     
-    for(int i=0; i<rowCount(r_ref); i++){
-        for(int j=3; j<colCount(r_ref); j++){
+    for(int i=0; i<NOREF; i++){
+        for(int j=3; j<6; j++){
             r_ref[i][j] = r_ref[i][j]/180*M_PI;
         }
     }
 
-    // Servo ON ///////////////////////////////////////////////////////////////////////////////////
+    // Servo ON
     SetAxis AxisData;
     AxisData.request.id = 8;
     AxisData.request.data = 1;
@@ -97,7 +78,7 @@ int main(int argc, char** argv){
     // ROS_INFO("Servo ON : id=%d, data=%d ", AxisData.request.id,AxisData.request.data);
     ROS_INFO("Servo ON : %s", AxisData.response.message.c_str());
 
-    // Set control mode ///////////////////////////////////////////////////////////////////////////
+    // Set control mode
     SetInt16 IntData;
     IntData.request.data = 0;
     set_mode.call(IntData);
@@ -108,7 +89,7 @@ int main(int argc, char** argv){
     // ROS_INFO("Set control mode : data=%d", IntData.request.data);
     ROS_INFO("Set control mode : %s", IntData.response.message.c_str());
 
-    // Set state normal ///////////////////////////////////////////////////////////////////////////
+    // Set state normal
     IntData.request.data = 0;
     set_state.call(IntData);
     if(IntData.response.ret){
@@ -120,13 +101,10 @@ int main(int argc, char** argv){
 
     Move Move_command;
     std_msgs::Float32MultiArray position_command;
-    position_command.data.resize(6);
-    position_command.data[0] = r_ref[0][0];
-    position_command.data[1] = r_ref[0][1];
-    position_command.data[2] = r_ref[0][2];
-    position_command.data[3] = r_ref[0][3];
-    position_command.data[4] = r_ref[0][4];
-    position_command.data[5] = r_ref[0][5];
+    position_command.data.resize(NOREF);
+    for(int j=0; j<6; j++){
+        position_command.data[j] = r_ref[0][j];
+    }
 
     Move_command.request.pose = position_command.data;
     Move_command.request.mvvelo = mvvelo;
@@ -147,19 +125,25 @@ int main(int argc, char** argv){
 
     while(ros::ok()){
         ROS_INFO("MOVE ref%d", ref_cnt);
-        for(int i=0; i<colCount(r_ref); i++){
+        for(int i=0; i<6; i++){
             position_command.data[i] = r_ref[ref_cnt][i];
         }
 
         if(move_flag){
-            ref_cnt ++;
-            if(ref_cnt == rowCount(r_ref)-1)
+            if(ref_cnt < NOREF-2)
+                ref_cnt ++;
+            else{
                 move_flag = false;
+                ref_cnt --;
+            }
         }
         else{
-            ref_cnt --;
-            if(ref_cnt == 0)
+            if(ref_cnt > 0)
+                ref_cnt --;
+            else{
                 move_flag = true;
+                ref_cnt ++;
+            }
         }
 
         // if(move_flag){
