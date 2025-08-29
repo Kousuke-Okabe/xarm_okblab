@@ -1,0 +1,26 @@
+move_ptp_repeat:
+  ros__parameters:
+    target_pos_x_1: 0.4
+    target_pos_y_1: 0.0
+    target_pos_z_1: 0.4
+    target_pos_r_1: 0.0
+    target_pos_p_1: 0.0
+    target_pos_y_1: 0.0
+    target_pos_x_2: 0.3
+    target_pos_y_2: 0.0
+    target_pos_z_2: 0.45
+    target_pos_r_2: 0.0
+    target_pos_p_2: 0.0
+    target_pos_y_2: 0.0
+    target_pos_x_3: 0.3
+    target_pos_y_3: 0.0
+    target_pos_z_3: 0.45
+    target_pos_r_3: 1.0472
+    target_pos_p_3: 0.0
+    target_pos_y_3: 0.0
+    target_pos_x_4: 0.25
+    target_pos_y_4: 0.0
+    target_pos_z_4: 0.363397
+    target_pos_r_4: 1.0472
+    target_pos_p_4: 0.0
+    target_pos_y_4: 0.0
