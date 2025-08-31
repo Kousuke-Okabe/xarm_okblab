@@ -6,8 +6,7 @@
 
     <node pkg="move_ptp_repeat" exec="move_ptp_repeat" name="move_ptp_repeat" output="screen">
         <param name="dof" value="$(var dof)"/>
-        
-
+    	<param from="$(find-pkg-share move_ptp_repeat)/config/my_params.yaml" />
         <!-- <param name="target_pos_x_1" value="0.2"/>
         <param name="target_pos_y_1" value="0.0"/>
         <param name="target_pos_z_1" value="0.4"/>

@@ -65,116 +65,99 @@ int main(int argc, char** argv)
 
     exec_plan_req->wait = true;
 
-    // ROS parameter
-    node->declare_parameter("target_pos_x_1", 0.2);
-    // node->declare_parameter<std::double>("target_pos_y_1", 0.0);
-    // node->declare_parameter<std::double>("target_pos_z_1", 0.4);
-    // node->declare_parameter<std::double>("target_pos_r_1", 0.0);
-    // node->declare_parameter<std::double>("target_pos_p_1", 0.0);
-    // node->declare_parameter<std::double>("target_pos_y_1", 0.0);
-
-    // node->declare_parameter<double>("target_pos_x_2", 0.3);
-    // node->declare_parameter<double>("target_pos_y_2", 0.0);
-    // node->declare_parameter<double>("target_pos_z_2", 0.4);
-    // node->declare_parameter<double>("target_pos_r_2", 0.0);
-    // node->declare_parameter<double>("target_pos_p_2", 0.0);
-    // node->declare_parameter<double>("target_pos_y_2", 0.0);
-
-    // node->declare_parameter<double>("target_pos_x_3", 0.3);
-    // node->declare_parameter<double>("target_pos_y_3", 0.0);
-    // node->declare_parameter<double>("target_pos_z_3", 0.4);
-    // node->declare_parameter<double>("target_pos_r_3", 0.0);
-    // node->declare_parameter<double>("target_pos_p_3", 0.0);
-    // node->declare_parameter<double>("target_pos_y_3", 0.0);
-
-    // node->declare_parameter<double>("target_pos_x_4", 0.3);
-    // node->declare_parameter<double>("target_pos_y_4", 0.0);
-    // node->declare_parameter<double>("target_pos_z_4", 0.4);
-    // node->declare_parameter<double>("target_pos_r_4", 0.0);
-    // node->declare_parameter<double>("target_pos_p_4", 0.0);
-    // node->declare_parameter<double>("target_pos_y_4", 0.0);
-
     geometry_msgs::msg::Pose target_pose1;
-    // node->get_parameter_or("target_pos_x_1", target_pose1.position.x, 0.3);
-
-    target_pose1.position.x = node->get_parameter("target_pos_x_1").as_double();
-    // node->get_parameter("target_pos_y_1", target_pose1.position.y);
-    // node->get_parameter("target_pos_z_1", target_pose1.position.z);
-    // node->get_parameter("target_pos_r_1", target_pose1.orientation.x);
-    // node->get_parameter("target_pos_p_1", target_pose1.orientation.y);
-    // node->get_parameter("target_pos_y_1", target_pose1.orientation.z);
+    node->get_parameter_or("target_pos_x_1", target_pose1.position.x,0.3);
+    node->get_parameter_or("target_pos_y_1", target_pose1.position.y,-0.1);
+    node->get_parameter_or("target_pos_z_1", target_pose1.position.z,0.2);
+    node->get_parameter_or("target_quat_w_1", target_pose1.orientation.w,0.0);
+    node->get_parameter_or("target_quat_x_1", target_pose1.orientation.x,1.0);
+    node->get_parameter_or("target_quat_y_1", target_pose1.orientation.y,0.0);
+    node->get_parameter_or("target_quat_z_1", target_pose1.orientation.z,0.0);
     // target_pose1.position.x = 0.3;
-	target_pose1.position.y = -0.1;
-	target_pose1.position.z = 0.2;
-	target_pose1.orientation.x = 1;
-	target_pose1.orientation.y = 0;
-	target_pose1.orientation.z = 0;
-	target_pose1.orientation.w = 0;
+    // target_pose1.position.y = -0.1;
+    // target_pose1.position.z = 0.2;
+    // target_pose1.orientation.x = 1;
+    // target_pose1.orientation.y = 0;
+    // target_pose1.orientation.z = 0;
+    // target_pose1.orientation.w = 0;
 
     geometry_msgs::msg::Pose target_pose2;
-    // node->get_parameter("target_pos_x_2", target_pose2.position.x);
-    // node->get_parameter("target_pos_y_2", target_pose2.position.y);
-    // node->get_parameter("target_pos_z_2", target_pose2.position.z);
-    // node->get_parameter("target_pos_r_2", target_pose2.orientation.x);
-    // node->get_parameter("target_pos_p_2", target_pose2.orientation.y);
-    // node->get_parameter("target_pos_y_2", target_pose2.orientation.z);
-    target_pose2.position.x = 0.3;
-	target_pose2.position.y = 0.1;
-	target_pose2.position.z = 0.2;
-	target_pose2.orientation.x = 1;
-	target_pose2.orientation.y = 0;
-	target_pose2.orientation.z = 0;
-	target_pose2.orientation.w = 0;
+    node->get_parameter_or("target_pos_x_2", target_pose2.position.x,0.3);
+    node->get_parameter_or("target_pos_y_2", target_pose2.position.y,0.1);
+    node->get_parameter_or("target_pos_z_2", target_pose2.position.z,0.2);
+    node->get_parameter_or("target_quat_w_2", target_pose2.orientation.w,0.0);
+    node->get_parameter_or("target_quat_x_2", target_pose2.orientation.x,1.0);
+    node->get_parameter_or("target_quat_y_2", target_pose2.orientation.y,0.0);
+    node->get_parameter_or("target_quat_z_2", target_pose2.orientation.z,0.0);
+    	// target_pose2.position.x = 0.3;
+	// target_pose2.position.y = 0.1;
+	// target_pose2.position.z = 0.2;
+	// target_pose2.orientation.x = 1;
+	// target_pose2.orientation.y = 0;
+	// target_pose2.orientation.z = 0;
+	// target_pose2.orientation.w = 0;
 
     geometry_msgs::msg::Pose target_pose3;
-    // node->get_parameter("target_pos_x_3", target_pose3.position.x);
-    // node->get_parameter("target_pos_y_3", target_pose3.position.y);
-    // node->get_parameter("target_pos_z_3", target_pose3.position.z);
-    // node->get_parameter("target_pos_r_3", target_pose3.orientation.x);
-    // node->get_parameter("target_pos_p_3", target_pose3.orientation.y);
-    // node->get_parameter("target_pos_y_3", target_pose3.orientation.z);
-    target_pose3.position.x = 0.3;
-	target_pose3.position.y = 0.1;
-	target_pose3.position.z = 0.4;
-	target_pose3.orientation.x = 1;
-	target_pose3.orientation.y = 0;
-	target_pose3.orientation.z = 0;
-	target_pose3.orientation.w = 0;
+    node->get_parameter_or("target_pos_x_3", target_pose3.position.x,0.3);
+    node->get_parameter_or("target_pos_y_3", target_pose3.position.y,0.1);
+    node->get_parameter_or("target_pos_z_3", target_pose3.position.z,0.4);
+    node->get_parameter_or("target_quat_w_3", target_pose3.orientation.w,0.0);
+    node->get_parameter_or("target_quat_x_3", target_pose3.orientation.x,1.0);
+    node->get_parameter_or("target_quat_y_3", target_pose3.orientation.y,0.0);
+    node->get_parameter_or("target_quat_z_3", target_pose3.orientation.z,0.0);
+    	// target_pose3.position.x = 0.3;
+	// target_pose3.position.y = 0.1;
+	// target_pose3.position.z = 0.4;
+	// target_pose3.orientation.x = 1;
+	// target_pose3.orientation.y = 0;
+	// target_pose3.orientation.z = 0;
+	// target_pose3.orientation.w = 0;
 
     geometry_msgs::msg::Pose target_pose4;
-    // node->get_parameter("target_pos_x_4", target_pose4.position.x);
-    // node->get_parameter("target_pos_y_4", target_pose4.position.y);
-    // node->get_parameter("target_pos_z_4", target_pose4.position.z);
-    // node->get_parameter("target_pos_r_4", target_pose4.orientation.x);
-    // node->get_parameter("target_pos_p_4", target_pose4.orientation.y);
-    // node->get_parameter("target_pos_y_4", target_pose4.orientation.z);
-    target_pose4.position.x = 0.3;
-	target_pose4.position.y = -0.1;
-	target_pose4.position.z = 0.4;
-	target_pose4.orientation.x = 1;
-	target_pose4.orientation.y = 0;
-	target_pose4.orientation.z = 0;
-	target_pose4.orientation.w = 0;
+    node->get_parameter_or("target_pos_x_4", target_pose4.position.x,0.3);
+    node->get_parameter_or("target_pos_y_4", target_pose4.position.y,-0.1);
+    node->get_parameter_or("target_pos_z_4", target_pose4.position.z,0.2);
+    node->get_parameter_or("target_quat_w_4", target_pose4.orientation.w,0.0);
+    node->get_parameter_or("target_quat_x_4", target_pose4.orientation.x,1.0);
+    node->get_parameter_or("target_quat_y_4", target_pose4.orientation.y,0.0);
+    node->get_parameter_or("target_quat_z_4", target_pose4.orientation.z,0.0);
+    	// target_pose4.position.x = 0.3;
+	// target_pose4.position.y = -0.1;
+	// target_pose4.position.z = 0.4;
+	// target_pose4.orientation.x = 1;
+	// target_pose4.orientation.y = 0;
+	// target_pose4.orientation.z = 0;
+	// target_pose4.orientation.w = 0;
     
     while (rclcpp::ok())
     {
         pose_plan_req->target = target_pose1;
-        RCLCPP_INFO(node->get_logger(), "[move_ptp_repeat]: target_pose1: x=%f, y=%f, z=%f, r=%f, p=%f, y=%f", target_pose1.position.x, target_pose1.position.y, target_pose1.position.z, target_pose1.orientation.x, target_pose1.orientation.y, target_pose1.orientation.z);
+        RCLCPP_INFO(node->get_logger(), "move to target_pose1");
         call_request(pose_plan_client_, pose_plan_req);
         call_request(exec_plan_client_, exec_plan_req);
 
         pose_plan_req->target = target_pose2;
-        RCLCPP_INFO(node->get_logger(), "[move_ptp_repeat]: target_pose2: x=%f, y=%f, z=%f, r=%f, p=%f, y=%f", target_pose2.position.x, target_pose2.position.y, target_pose2.position.z, target_pose2.orientation.x, target_pose2.orientation.y, target_pose2.orientation.z);
+        RCLCPP_INFO(node->get_logger(), "move to target_pose2");
         call_request(pose_plan_client_, pose_plan_req);
         call_request(exec_plan_client_, exec_plan_req);
 
         pose_plan_req->target = target_pose3;
-        RCLCPP_INFO(node->get_logger(), "[move_ptp_repeat]: target_pose3: x=%f, y=%f, z=%f, r=%f, p=%f, y=%f", target_pose3.position.x, target_pose3.position.y, target_pose3.position.z, target_pose3.orientation.x, target_pose3.orientation.y, target_pose3.orientation.z);
+        RCLCPP_INFO(node->get_logger(), "move to target_pose3");
         call_request(pose_plan_client_, pose_plan_req);
         call_request(exec_plan_client_, exec_plan_req);
 
         pose_plan_req->target = target_pose4;
-        RCLCPP_INFO(node->get_logger(), "[move_ptp_repeat]: target_pose4: x=%f, y=%f, z=%f, r=%f, p=%f, y=%f", target_pose4.position.x, target_pose4.position.y, target_pose4.position.z, target_pose4.orientation.x, target_pose4.orientation.y, target_pose4.orientation.z);
+        RCLCPP_INFO(node->get_logger(), "move to target_pose4");
+        call_request(pose_plan_client_, pose_plan_req);
+        call_request(exec_plan_client_, exec_plan_req);
+        
+        pose_plan_req->target = target_pose3;
+        RCLCPP_INFO(node->get_logger(), "move to target_pose3");
+        call_request(pose_plan_client_, pose_plan_req);
+        call_request(exec_plan_client_, exec_plan_req);
+        
+        pose_plan_req->target = target_pose2;
+        RCLCPP_INFO(node->get_logger(), "move to target_pose2");
         call_request(pose_plan_client_, pose_plan_req);
         call_request(exec_plan_client_, exec_plan_req);
     }
