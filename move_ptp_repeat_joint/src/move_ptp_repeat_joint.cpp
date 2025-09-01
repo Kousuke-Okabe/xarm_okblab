@@ -92,12 +92,12 @@ int main(int argc, char** argv)
             node->get_parameter_or("target_joint_3", tar_joint3, {-1.570796, -1.570796, -1.047198, -2.967060, -0.349066, 3.124139});
             node->get_parameter_or("target_joint_4", tar_joint4, {0, 0, 0, 0, 0, 0});
 
-            for(int i=0; i<6; i++){
-                tar_joint1[i] = tar_joint1[i] / 180.0 * 3.1415926;
-                tar_joint2[i] = tar_joint2[i] / 180.0 * 3.1415926;
-                tar_joint3[i] = tar_joint3[i] / 180.0 * 3.1415926;
-                tar_joint4[i] = tar_joint4[i] / 180.0 * 3.1415926;
-            }
+            // for(int i=0; i<6; i++){
+            //     tar_joint1[i] = tar_joint1[i] / 180.0 * 3.1415926;
+            //     tar_joint2[i] = tar_joint2[i] / 180.0 * 3.1415926;
+            //     tar_joint3[i] = tar_joint3[i] / 180.0 * 3.1415926;
+            //     // tar_joint4[i] = tar_joint4[i] / 180.0 * 3.1415926;
+            // }
 
             // tar_joint1 = {1.570796, -1.570796, -1.047198, 2.967060, 2.792527, -3.124139};
             // tar_joint2 = {0, 0, 0, 0, 0, 0};

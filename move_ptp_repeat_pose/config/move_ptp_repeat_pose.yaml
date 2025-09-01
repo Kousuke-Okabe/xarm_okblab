@@ -2,7 +2,7 @@ move_ptp_repeat_pose:
   ros__parameters:
     target_pos_x_1: 0.3
     target_pos_y_1: 0.0
-    target_pos_z_1: 0.4
+    target_pos_z_1: 0.5
     target_quat_w_1: 0.0
     target_quat_x_1: 1.0
     target_quat_y_1: 0.0
@@ -10,7 +10,7 @@ move_ptp_repeat_pose:
     
     target_pos_x_2: 0.3
     target_pos_y_2: 0.0
-    target_pos_z_2: 0.45
+    target_pos_z_2: 0.55
     target_quat_w_2: 0.0
     target_quat_x_2: 1.0
     target_quat_y_2: 0.0
@@ -18,7 +18,7 @@ move_ptp_repeat_pose:
 
     target_pos_x_3: 0.3
     target_pos_y_3: 0.0
-    target_pos_z_3: 0.45
+    target_pos_z_3: 0.55
     target_quat_w_3: 0.38268343
     target_quat_x_3: 0.92387953
     target_quat_y_3: 0.0
@@ -26,7 +26,7 @@ move_ptp_repeat_pose:
 
     target_pos_x_4: 0.3
     target_pos_y_4: -0.03535533
-    target_pos_z_4: 0.414644660
+    target_pos_z_4: 0.514644660
     target_quat_w_4: 0.38268343
     target_quat_x_4: 0.92387953
     target_quat_y_4: 0.0
