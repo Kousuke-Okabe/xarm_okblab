@@ -15,7 +15,7 @@ std::shared_ptr<rclcpp::Node> node;
 
 void exit_sig_handler(int signum)
 {
-    fprintf(stderr, "[move_ptp_repeat] Ctrl-C caught, exit process...\n");
+    fprintf(stderr, "[move_ptp_repeat_pose] Ctrl-C caught, exit process...\n");
     exit(-1);
 }
 
@@ -49,8 +49,8 @@ int main(int argc, char** argv)
     rclcpp::init(argc, argv);
     rclcpp::NodeOptions node_options;
     node_options.automatically_declare_parameters_from_overrides(true);    
-    node = rclcpp::Node::make_shared("move_ptp_repeat", node_options);
-    RCLCPP_INFO(node->get_logger(), "move_ptp_repeat start");
+    node = rclcpp::Node::make_shared("move_ptp_repeat_pose", node_options);
+    RCLCPP_INFO(node->get_logger(), "move_ptp_repeat_pose start");
     signal(SIGINT, exit_sig_handler);
 
     int dof;

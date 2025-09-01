@@ -1,0 +1,13 @@
+<launch>
+    <arg name="dof" default="6"/>
+    <arg name="robot_ip" default="192.168.1.203"/>
+
+    <include file="$(find-pkg-share xarm_planner)/launch/xarm6_planner_realmove.launch.py">
+        <arg name="robot_ip" value="$(var robot_ip)"/>
+    </include>
+
+    <node pkg="move_ptp_repeat_pose" exec="move_ptp_repeat_pose" name="move_ptp_repeat_pose" output="screen">
+        <param name="dof" value="$(var dof)"/>
+    	<param from="$(find-pkg-share move_ptp_repeat_pose)/config/move_ptp_repeat_pose.yaml" />
+    </node>
+</launch>

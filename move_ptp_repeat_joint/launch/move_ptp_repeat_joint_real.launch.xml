@@ -6,7 +6,8 @@
         <arg name="robot_ip" value="$(var robot_ip)"/>
     </include>
 
-    <node pkg="move_ptp_repeat" exec="move_ptp_repeat" name="move_ptp_repeat" output="screen">
+    <node pkg="move_ptp_repeat_joint" exec="move_ptp_repeat_joint" name="move_ptp_repeat_joint" output="screen">
         <param name="dof" value="$(var dof)"/>
+    	<param from="$(find-pkg-share move_ptp_repeat_joint)/config/move_ptp_repeat_joint.yaml" />
     </node>
 </launch>

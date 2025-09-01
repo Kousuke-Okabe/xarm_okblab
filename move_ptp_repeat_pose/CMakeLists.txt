@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(move_ptp_repeat)
+project(move_ptp_repeat_pose)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -11,16 +11,16 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(xarm_msgs REQUIRED)
 
-add_executable(move_ptp_repeat src/move_ptp_repeat.cpp)
+add_executable(move_ptp_repeat_pose src/move_ptp_repeat_pose.cpp)
 ament_target_dependencies(
-  move_ptp_repeat
+  move_ptp_repeat_pose
   rclcpp
   std_msgs
   xarm_msgs
 )
 
 install(
-  TARGETS move_ptp_repeat
+  TARGETS move_ptp_repeat_pose
   DESTINATION lib/${PROJECT_NAME}
 )
 install(
